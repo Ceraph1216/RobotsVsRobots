@@ -42,7 +42,7 @@ public class RobotDamager : RobotPart
         if (otherRobot.IsDying || otherRobot.Team == myRobot.Team) return;
         if (currentTarget != null)
         {
-            targetList.Add(otherRobot);
+            if (!targetList.Contains(currentTarget)) targetList.Add(otherRobot);
             return;
         }
         else
@@ -50,6 +50,11 @@ public class RobotDamager : RobotPart
             StartAttacking(otherRobot);
         }
             
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        OnTriggerEnter2D(collision);
     }
 
     void StartAttacking(Robot otherRD)
@@ -68,7 +73,7 @@ public class RobotDamager : RobotPart
         yield return new WaitForSeconds(attackTime);
         if (currentTarget == null || currentTarget.IsDying)
         {
-            myRobot.Movement.StartMoving();
+            Retarget();
             yield break;
         }
 

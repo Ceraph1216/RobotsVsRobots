@@ -31,8 +31,13 @@ public class Robot : MonoBehaviour
     [SerializeField] RobotTeam team;
     public RobotTeam Team { get { return team; } set { team = value; } }
 
+
+    const string robotEntityString = "RobotEntity";
+    static GameObjectPool robotEntityPool;
+
     void Awake()
     {
+
         health = maxHealth;
     }
 
@@ -73,7 +78,8 @@ public class Robot : MonoBehaviour
         yield return null;
 
         FreeParts();
-        Destroy(gameObject);
+
+        robotEntityPool.Unspawn(gameObject);
     }
 
     private void FreeParts()
@@ -83,5 +89,20 @@ public class Robot : MonoBehaviour
 
         myMovement.transform.parent.SetParent(null);
         PrefabManager.instance.ObjectPool(myMovement.name).Unspawn(myMovement.transform.parent.gameObject);
+    }
+
+    public static void SpawnRobot(RobotMovement rm, RobotDamager rd, Vector3 position, RobotTeam team)
+    {
+        if (robotEntityPool == null) robotEntityPool = PrefabManager.instance.ObjectPool(robotEntityString);
+        GameObject robotGO = robotEntityPool.Spawn();
+
+        Robot r = robotGO.GetComponent<Robot>();
+        r.transform.position = position;
+        r.Team = team;
+
+        rm.transform.parent.SetParent(robotGO.transform, false);
+        rd.transform.parent.SetParent(robotGO.transform, false);
+
+        r.BeginPlay();
     }
 }

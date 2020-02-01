@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PartTester : MonoBehaviour
 {
-    string fastMovementPartString = "FastMovement";
+    const string fastMovementPartString = "FastMovement";
     GameObjectPool fastMovementPool;
-    string slowMovementPartString = "SlowMovement";
+    const string slowMovementPartString = "SlowMovement";
     GameObjectPool slowMovementPool;
-    string meleeDamagertPartString = "MeleeDamager";
+    const string meleeDamagertPartString = "MeleeDamager";
     GameObjectPool meleeDamagerPool;
-    string rangedDamagerPartString = "RangedDamager";
+    const string rangedDamagerPartString = "RangedDamager";
     GameObjectPool rangedDamagerPool;
 
     List<RobotMovement> movementInventory;
@@ -47,35 +47,30 @@ public class PartTester : MonoBehaviour
         damagerInventory.Add(rangedDamagerPool.Spawn().GetComponentInChildren<RobotDamager>());
     }
 
-    void Spawn(Robot.RobotTeam team)
+    void CraftRobot(Robot.RobotTeam team)
     {
         if (movementInventory.Count == 0 || damagerInventory.Count == 0) return;
 
-        GameObject go = new GameObject();
-        go.transform.position = (team == Robot.RobotTeam.Left ? Vector2.left : Vector2.right) * 5;
-        go.AddComponent<BoxCollider2D>();
-        Robot r = go.AddComponent<Robot>();
-        r.Team = team;
+        Vector2 robotPos = (team == Robot.RobotTeam.Left ? Vector2.left : Vector2.right) * 5;
+
 
         RobotMovement m = movementInventory[0];
         movementInventory.RemoveAt(0);
-        m.transform.parent.SetParent(go.transform, false);
 
         RobotDamager d = damagerInventory[0];
         damagerInventory.RemoveAt(0);
-        d.transform.parent.SetParent(go.transform, false);
 
-        r.BeginPlay();
+        Robot.SpawnRobot(m, d, robotPos, team);
     }
-
+    
     private void SpawnAsLeft()
     {
-        Spawn(Robot.RobotTeam.Left);
+        CraftRobot(Robot.RobotTeam.Left);
     }
 
     private void SpawnAsRight()
     {
-        Spawn(Robot.RobotTeam.Right);
+        CraftRobot(Robot.RobotTeam.Right);
     }
 
     private void OnGUI()

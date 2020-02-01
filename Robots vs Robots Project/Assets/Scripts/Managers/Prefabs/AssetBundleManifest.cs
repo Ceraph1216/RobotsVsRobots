@@ -43,7 +43,8 @@ public class AssetBundleManifest : MonoBehaviour
             "FastMovement",
             "SlowMovement",
             "MeleeDamager",
-            "RangedDamager"
+            "RangedDamager",
+            "RobotEntity"
         }
     };
 }
