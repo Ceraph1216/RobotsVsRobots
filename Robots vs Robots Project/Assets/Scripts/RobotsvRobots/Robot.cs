@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(RobotMovement))]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(RobotDamage))]
+[RequireComponent(typeof(Collider2D))]
 public class Robot : MonoBehaviour
 {
-    public int health;
-    public int maxHealth;
+    [SerializeField] int health;
+    [SerializeField] int maxHealth;
 
-    RobotDamage myRobotDamage;
+    Rigidbody2D rb2d;
+    public Rigidbody2D Rb2d { get { return rb2d; } private set { rb2d = value; } }
 
-    public bool isDying;
+    [SerializeField] RobotDamager myDamager;
+    public RobotDamager Damager { get { return myDamager; } private set { myDamager = value; } }
+
+    [SerializeField] RobotMovement myMovement;
+    public RobotMovement Movement { get { return myMovement; } private set { myMovement = value; } }
+
+    [SerializeField] bool isDying;
+    public bool IsDying { get { return isDying; } private set { isDying = value; } }
 
     [System.Serializable]
     public enum RobotTeam
@@ -21,17 +28,35 @@ public class Robot : MonoBehaviour
         Right
     }
 
-    public RobotTeam team;
+    [SerializeField] RobotTeam team;
+    public RobotTeam Team { get { return team; } set { team = value; } }
 
-    public void Awake()
+    void Awake()
     {
         health = maxHealth;
-        myRobotDamage = GetComponent<RobotDamage>();
+    }
+
+    public void BeginPlay()
+    {
+        rb2d = GetComponent<Rigidbody2D>();
+        rb2d.gravityScale = 0f;
+
+        GetComponent<Collider2D>().isTrigger = true;
+
+        tag = "robot";
+
+        myDamager = GetComponentInChildren<RobotDamager>();
+        myDamager.RegisterWithRobot(this);
+
+        myMovement = GetComponentInChildren<RobotMovement>();
+        myMovement.RegisterWithRobot(this);
+
+        if (team == RobotTeam.Right) transform.rotation = Quaternion.LookRotation(Vector3.back);
     }
 
     public void ReduceHealth(int reduceAmount)
     {
-        Debug.Log("robot of type: "+ myRobotDamage.myDamageType + " losing health by: " + reduceAmount);
+        Debug.Log("robot of type: "+ myDamager.myDamageType + " losing health by: " + reduceAmount);
         this.health = Mathf.Max(0, health - reduceAmount);
 
 
@@ -44,8 +69,19 @@ public class Robot : MonoBehaviour
 
     private IEnumerator DelayDeath()
     {
-        yield return new WaitForSeconds(0.1f);
-        
+        yield return null;
+        yield return null;
+
+        FreeParts();
         Destroy(gameObject);
+    }
+
+    private void FreeParts()
+    {
+        myDamager.transform.parent.SetParent(null);
+        PrefabManager.instance.ObjectPool(myDamager.name).Unspawn(myDamager.transform.parent.gameObject);
+
+        myMovement.transform.parent.SetParent(null);
+        PrefabManager.instance.ObjectPool(myMovement.name).Unspawn(myMovement.transform.parent.gameObject);
     }
 }
