@@ -21,6 +21,8 @@ public class Robot : MonoBehaviour
     Collider2D myColl;
 
     ParticleSystem particles;
+    [SerializeField]
+    private GameObject smoke;
 
     [SerializeField] RobotDamager myDamager;
     public RobotDamager Damager { get { return myDamager; } private set { myDamager = value; } }
@@ -89,6 +91,10 @@ public class Robot : MonoBehaviour
         Debug.Log("robot of type: "+ myDamager.myDamageType + " losing health by: " + reduceAmount);
         this.health = Mathf.Max(0, health - reduceAmount);
 
+        if (this.health <= (maxHealth / 2))
+        {
+            this.smoke.SetActive(true);
+        }
 
         if (this.health == 0)
         {
@@ -124,6 +130,7 @@ public class Robot : MonoBehaviour
 
         myMovement.transform.parent.SetParent(null);
         PrefabManager.instance.ObjectPool(myMovement.name).Unspawn(myMovement.transform.parent.gameObject);
+        this.smoke.SetActive(false);
     }
 
     public static Robot SpawnRobot(RobotMovement rm, RobotDamager rd, Vector3 position, RobotTeam team)
