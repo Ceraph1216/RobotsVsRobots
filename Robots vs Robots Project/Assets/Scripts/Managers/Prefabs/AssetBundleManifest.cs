@@ -40,8 +40,10 @@ public class AssetBundleManifest : MonoBehaviour
 		},
         new string[]
         {
-            "LeftScissorsRobot",
-            "RightRockRobot"
+            "FastMovement",
+            "SlowMovement",
+            "MeleeDamager",
+            "RangedDamager"
         }
     };
 }

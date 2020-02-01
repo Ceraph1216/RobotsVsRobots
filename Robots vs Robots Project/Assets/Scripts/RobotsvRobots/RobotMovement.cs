@@ -2,33 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(RobotDamage))]
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Robot))]
-public class RobotMovement : MonoBehaviour
+public class RobotMovement : RobotPart
 {
-    public Robot myRobot;
-    public Rigidbody2D rb2d;
+    [SerializeField] bool isMoving;
+    [SerializeField] float moveSpeed;
 
-    public bool isMoving;
-    public float moveSpeed;
-
-    private void Awake()
+    private void Start()
     {
-        myRobot = GetComponent<Robot>();
-        rb2d = GetComponent<Rigidbody2D>();
-
-        StartMoving();
+        if (myRobot != null)
+        {
+            StartMoving();
+        }
     }
 
     public void StartMoving()
     {
-        float absoluteMoveSpeed = myRobot.team == Robot.RobotTeam.Left ? moveSpeed : -moveSpeed;
-        rb2d.velocity = Vector2.right * absoluteMoveSpeed;
+        isMoving = true;
+        float absoluteMoveSpeed = myRobot.Team == Robot.RobotTeam.Left ? moveSpeed : -moveSpeed;
+        myRobot.Rb2d.velocity = Vector2.right * absoluteMoveSpeed;
     }
 
     public void StopMoving()
     {
-        rb2d.velocity = Vector2.zero;
+        isMoving = false;
+        myRobot.Rb2d.velocity = Vector2.zero;
+    }
+
+    public override void RegisterWithRobot(Robot r)
+    {
+        base.RegisterWithRobot(r);
+        StartMoving();
     }
 }
