@@ -7,6 +7,8 @@ using UnityEngine;
 public class Robot : MonoBehaviour
 {
     [SerializeField] int health;
+    public int Health { get { return health; } private set { health = value; } }
+
     [SerializeField] int maxHealth;
 
     Rigidbody2D rb2d;
@@ -35,14 +37,11 @@ public class Robot : MonoBehaviour
     const string robotEntityString = "RobotEntity";
     static GameObjectPool robotEntityPool;
 
-    void Awake()
-    {
-
-        health = maxHealth;
-    }
-
     public void BeginPlay()
     {
+        health = maxHealth;
+        isDying = false;
+
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.gravityScale = 0f;
 
@@ -84,6 +83,7 @@ public class Robot : MonoBehaviour
 
     private void FreeParts()
     {
+        myDamager.ClearTargeting();
         myDamager.transform.parent.SetParent(null);
         PrefabManager.instance.ObjectPool(myDamager.name).Unspawn(myDamager.transform.parent.gameObject);
 

@@ -14,9 +14,14 @@ public class RobotDamager : RobotPart
 
     void Start()
     {
+        myCollider = GetComponent<Collider2D>();
+        ClearTargeting();
+    }
+
+    public void ClearTargeting()
+    {
         currentTarget = null;
         targetList = new List<Robot>();
-        myCollider = GetComponent<Collider2D>();
 
         if (myRobot == null)
         {

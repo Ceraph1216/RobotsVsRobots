@@ -29,22 +29,30 @@ public class PartTester : MonoBehaviour
 
     void AddFastMovement()
     {
-        movementInventory.Add(fastMovementPool.Spawn().GetComponentInChildren<RobotMovement>());
+        RobotMovement rm = fastMovementPool.Spawn().GetComponentInChildren<RobotMovement>();
+        rm.name = fastMovementPartString;
+        movementInventory.Add(rm);
     }
 
     void AddSlowMovement()
     {
-        movementInventory.Add(slowMovementPool.Spawn().GetComponentInChildren<RobotMovement>());
+        RobotMovement rm = slowMovementPool.Spawn().GetComponentInChildren<RobotMovement>();
+        rm.name = slowMovementPartString;
+        movementInventory.Add(rm);
     }
 
     void AddMeleeDamager()
     {
-        damagerInventory.Add(meleeDamagerPool.Spawn().GetComponentInChildren<RobotDamager>());
+        RobotDamager rd = meleeDamagerPool.Spawn().GetComponentInChildren<RobotDamager>();
+        rd.name = meleeDamagertPartString;
+        damagerInventory.Add(rd);
     }
 
     void AddRangedDamager()
     {
-        damagerInventory.Add(rangedDamagerPool.Spawn().GetComponentInChildren<RobotDamager>());
+        RobotDamager rd = rangedDamagerPool.Spawn().GetComponentInChildren<RobotDamager>();
+        rd.name = rangedDamagerPartString;
+        damagerInventory.Add(rd);
     }
 
     void CraftRobot(Robot.RobotTeam team)
