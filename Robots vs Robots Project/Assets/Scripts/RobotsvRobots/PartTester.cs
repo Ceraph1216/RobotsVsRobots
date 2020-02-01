@@ -110,7 +110,7 @@ public class PartTester : MonoBehaviour
     
     private void SpawnAsLeft()
     {
-        if (curLeftRobot != null) return;
+        if (curLeftRobot == null) return;
 
         curLeftRobot.StartActivity();
         curLeftRobot = null;
@@ -120,7 +120,7 @@ public class PartTester : MonoBehaviour
 
     private void SpawnAsRight()
     {
-        if (curRightRobot != null) return;
+        if (curRightRobot == null) return;
 
         curRightRobot.StartActivity();
         curRightRobot = null;
