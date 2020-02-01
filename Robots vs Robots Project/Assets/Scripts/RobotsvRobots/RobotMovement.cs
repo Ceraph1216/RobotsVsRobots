@@ -2,21 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class RobotMovement : RobotPart
 {
     [SerializeField] bool isMoving;
     [SerializeField] float moveSpeed;
+  
 
     private void Start()
     {
+        myAnim = GetComponent<Animator>();
         if (myRobot != null)
         {
             StartMoving();
         }
     }
 
+    public void StartAttacking()
+    {
+        myAnim.SetTrigger("StartAttacking");
+    }
+
     public void StartMoving()
     {
+        myAnim.SetTrigger("StartMoving");
+        myRobot.Damager.StartMoving();
+
         isMoving = true;
         float absoluteMoveSpeed = myRobot.Team == Robot.RobotTeam.Left ? moveSpeed : -moveSpeed;
         myRobot.Rb2d.velocity = Vector2.right * absoluteMoveSpeed;

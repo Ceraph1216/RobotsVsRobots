@@ -55,7 +55,7 @@ public class Robot : MonoBehaviour
         myMovement = GetComponentInChildren<RobotMovement>();
         myMovement.RegisterWithRobot(this);
 
-        if (team == RobotTeam.Right) transform.rotation = Quaternion.LookRotation(Vector3.back);
+        if (team == RobotTeam.Left) transform.rotation = Quaternion.LookRotation(Vector3.back);
     }
 
     public void ReduceHealth(int reduceAmount)
@@ -67,6 +67,8 @@ public class Robot : MonoBehaviour
         if (this.health == 0)
         {
             isDying = true;
+            myMovement.Freeze();
+            myMovement.Freeze();
             StartCoroutine(DelayDeath());
         }
     }

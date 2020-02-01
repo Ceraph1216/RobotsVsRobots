@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Animator))]
 public class RobotDamager : RobotPart
 {
     [SerializeField] Robot currentTarget;
@@ -14,6 +15,7 @@ public class RobotDamager : RobotPart
 
     void Start()
     {
+        myAnim = GetComponent<Animator>();
         myCollider = GetComponent<Collider2D>();
         ClearTargeting();
     }
@@ -64,7 +66,6 @@ public class RobotDamager : RobotPart
 
     void StartAttacking(Robot otherRD)
     {
-
         Debug.Log("robot of type: " + myDamageType + " attacking");
         currentTarget = otherRD;
 
@@ -75,6 +76,8 @@ public class RobotDamager : RobotPart
 
     IEnumerator DoAttack()
     {
+        myAnim.SetTrigger("StartAttacking");
+        myRobot.Movement.StartAttacking();
         yield return new WaitForSeconds(attackTime);
         if (currentTarget == null || currentTarget.IsDying)
         {
@@ -115,6 +118,7 @@ public class RobotDamager : RobotPart
 
         myRobot.Movement.StartMoving();
         currentTarget = null;
+
     }
 
     protected virtual int DamageVs(Robot other)
@@ -135,5 +139,10 @@ public class RobotDamager : RobotPart
     {
         base.RegisterWithRobot(r);
         myCollider.enabled = true;
+    }
+
+    public void StartMoving()
+    {
+        myAnim.SetTrigger("StartMoving");
     }
 }
