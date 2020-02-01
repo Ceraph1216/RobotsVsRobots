@@ -6,14 +6,14 @@ public class RobotProductionManager : MonoBehaviour
 {
     public static RobotProductionManager instance;
 
-    private RobotPart _selectedPart;
+    private RobotPartCard _selectedPart;
 
     void Awake ()
     {
         instance = this;
     }
 
-    public void SelectPart (RobotPart p_part)
+    public void SelectPart (RobotPartCard p_part)
     {
         if (_selectedPart == null)
         {
@@ -32,7 +32,7 @@ public class RobotProductionManager : MonoBehaviour
         }
     }
 
-    private void CompareParts (RobotPart p_part1, RobotPart p_part2)
+    private void CompareParts (RobotPartCard p_part1, RobotPartCard p_part2)
     {
         if (p_part1.partType != p_part2.partType)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RobotPart : MonoBehaviour
+public class RobotPartCard : MonoBehaviour
 {
     public PartType partType;
 
