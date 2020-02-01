@@ -9,7 +9,8 @@ public class AssetBundleManifest : MonoBehaviour
 		"Effects",
 		"Molecules",
 		"Snake",
-		"UI"
+		"UI",
+        "RobotsVsRobots"
 	};
 
 	public static string[][] assetNames = 
@@ -36,6 +37,11 @@ public class AssetBundleManifest : MonoBehaviour
 		{
 			"Answer",
 			"MatchCard"
-		}
-	};
+		},
+        new string[]
+        {
+            "LeftScissorsRobot",
+            "RightRockRobot"
+        }
+    };
 }
