@@ -20,8 +20,27 @@ public class RobotPart : MonoBehaviour
     }
 
 
-    public void Freeze()
+    public virtual void Freeze()
     {
         myAnim.SetTrigger("Freeze");
+        myAnim.ResetTrigger("StartAttacking");
+        myAnim.ResetTrigger("StartMoving");
+    }
+
+    public void SetHasTarget(bool hasTarget)
+    {
+        myAnim.SetBool("hasTarget", hasTarget);
+
+        if (!hasTarget)
+        {
+            myAnim.ResetTrigger("StartAttacking");
+        }
+    }
+
+    public void SetIsDying(bool isDying)
+    {
+        myAnim.SetBool("isDying", isDying);
+        myAnim.ResetTrigger("StartAttacking");
+        myAnim.ResetTrigger("StartMoving");
     }
 }

@@ -4,15 +4,21 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(ParticleSystem))]
 public class Robot : MonoBehaviour
 {
     [SerializeField] int health;
     public int Health { get { return health; } private set { health = value; } }
 
+    [SerializeField] float deathDelay;
+
+
     [SerializeField] int maxHealth;
 
     Rigidbody2D rb2d;
     public Rigidbody2D Rb2d { get { return rb2d; } private set { rb2d = value; } }
+
+    ParticleSystem particles;
 
     [SerializeField] RobotDamager myDamager;
     public RobotDamager Damager { get { return myDamager; } private set { myDamager = value; } }
@@ -21,7 +27,11 @@ public class Robot : MonoBehaviour
     public RobotMovement Movement { get { return myMovement; } private set { myMovement = value; } }
 
     [SerializeField] bool isDying;
-    public bool IsDying { get { return isDying; } private set { isDying = value; } }
+    public bool IsDying { get { return isDying; } private set { isDying = value; SetIsDying(value); } }
+
+    [SerializeField] bool canDealDamage;
+    public bool CanDealDamage { get { return canDealDamage; } private set { canDealDamage = value; } }
+
 
     [System.Serializable]
     public enum RobotTeam
@@ -41,9 +51,12 @@ public class Robot : MonoBehaviour
     {
         health = maxHealth;
         isDying = false;
+        canDealDamage = true;
 
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.gravityScale = 0f;
+
+        particles = GetComponent<ParticleSystem>();
 
         GetComponent<Collider2D>().isTrigger = true;
 
@@ -66,17 +79,24 @@ public class Robot : MonoBehaviour
 
         if (this.health == 0)
         {
-            isDying = true;
-            myMovement.Freeze();
-            myMovement.Freeze();
             StartCoroutine(DelayDeath());
         }
     }
 
     private IEnumerator DelayDeath()
     {
+        isDying = true;
+        particles.Play();
+
+        myMovement.Freeze();
+        myDamager.Freeze();
+
         yield return null;
         yield return null;
+
+
+        canDealDamage = false;
+        yield return new WaitForSeconds(deathDelay);
 
         FreeParts();
 
@@ -106,5 +126,17 @@ public class Robot : MonoBehaviour
         rd.transform.parent.SetParent(robotGO.transform, false);
 
         r.BeginPlay();
+    }
+
+    public void SetHasTarget(bool hasTarget)
+    {
+        myDamager.SetHasTarget(hasTarget);
+        myMovement.SetHasTarget(hasTarget);
+    }
+
+    public void SetIsDying(bool isDying)
+    {
+        myDamager.SetIsDying(isDying);
+        myMovement.SetIsDying(isDying);
     }
 }

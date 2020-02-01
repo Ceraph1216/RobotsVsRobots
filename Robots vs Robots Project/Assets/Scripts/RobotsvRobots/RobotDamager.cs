@@ -42,6 +42,7 @@ public class RobotDamager : RobotPart
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (myRobot.IsDying) return;
         if (! collision.CompareTag("robot")) return;
 
         Robot otherRobot = collision.GetComponent<Robot>();
@@ -71,41 +72,77 @@ public class RobotDamager : RobotPart
 
         myRobot.Movement.StopMoving();
 
-        StartCoroutine(DoAttack());
+        DoAttack();
     }
 
-    IEnumerator DoAttack()
+    void CompleteAttack()
     {
+        StartCoroutine(HandleCompleteAttack());
+    }
+
+    void DoAttack()
+    {
+        myRobot.SetHasTarget(true);
         myAnim.SetTrigger("StartAttacking");
         myRobot.Movement.StartAttacking();
-        yield return new WaitForSeconds(attackTime);
-        if (currentTarget == null || currentTarget.IsDying)
+    }
+
+    IEnumerator HandleCompleteAttack()
+    {
+        if (!myRobot.CanDealDamage)
         {
+            myRobot.SetHasTarget(false);
+            yield break;
+        }
+
+        if (currentTarget == null || currentTarget.IsDying || !currentTarget.gameObject.activeInHierarchy)
+        {
+            myRobot.SetHasTarget(false);
             Retarget();
             yield break;
         }
 
+        Debug.Log("not dead yet");
+
         int damageAgainst = DamageVs(currentTarget);
 
         currentTarget.ReduceHealth(damageAgainst);
-        
-        if (currentTarget.IsDying)
+
+        yield return null;
+
+        if (currentTarget.IsDying || !currentTarget.gameObject.activeInHierarchy || currentTarget.IsDying)
         {
+            myRobot.SetHasTarget(false);
             Retarget();
         }
         else 
         {
-            yield return null;
-            if (!myRobot.IsDying) yield return DoAttack();
+            if (myRobot.IsDying)
+            {
+                myRobot.SetHasTarget(false);
+                myRobot.SetIsDying(true);
+            }
+            else
+            {
+
+                Debug.Log("not dead yet2");
+                DoAttack();
+            }
         }
     }
 
     void Retarget()
     {
+        if (myRobot.IsDying)
+        {
+            myRobot.SetHasTarget(false);
+            return;
+        }
+
         while (targetList.Count > 0)
         {
             Robot candidateRobot = targetList[0];
-            if (candidateRobot == null | candidateRobot.IsDying)
+            if (candidateRobot == null || !candidateRobot.gameObject.activeInHierarchy || candidateRobot.IsDying)
             {
                 targetList.RemoveAt(0);
             }
@@ -117,6 +154,7 @@ public class RobotDamager : RobotPart
         }
 
         myRobot.Movement.StartMoving();
+        myRobot.SetHasTarget(false);
         currentTarget = null;
 
     }

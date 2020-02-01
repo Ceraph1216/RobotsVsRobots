@@ -25,6 +25,7 @@ public class RobotMovement : RobotPart
 
     public void StartMoving()
     {
+        if (myRobot.IsDying) return;
         myAnim.SetTrigger("StartMoving");
         myRobot.Damager.StartMoving();
 
@@ -43,5 +44,11 @@ public class RobotMovement : RobotPart
     {
         base.RegisterWithRobot(r);
         StartMoving();
+    }
+
+    public override void Freeze()
+    {
+        base.Freeze();
+        StopMoving();
     }
 }
