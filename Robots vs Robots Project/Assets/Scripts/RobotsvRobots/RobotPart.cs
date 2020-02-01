@@ -8,7 +8,7 @@ public class RobotPart : MonoBehaviour
     protected Animator myAnim;
     protected Robot myRobot;
 
-    void Awake()
+    protected virtual void Awake()
     {
         myRobot = GetComponentInParent<Robot>();
         myAnim = GetComponent<Animator>();
