@@ -15,9 +15,16 @@ public class RobotDamager : RobotPart
 
     void Start()
     {
+        ClearTargeting();
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
         myAnim = GetComponent<Animator>();
         myCollider = GetComponent<Collider2D>();
-        ClearTargeting();
+
     }
 
     public void ClearTargeting()
@@ -42,7 +49,7 @@ public class RobotDamager : RobotPart
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (myRobot.IsDying) return;
+        if (myRobot.IsDying || !myRobot.CanDealDamage) return;
         if (! collision.CompareTag("robot")) return;
 
         Robot otherRobot = collision.GetComponent<Robot>();
@@ -98,6 +105,7 @@ public class RobotDamager : RobotPart
         if (currentTarget == null || currentTarget.IsDying || !currentTarget.gameObject.activeInHierarchy)
         {
             myRobot.SetHasTarget(false);
+            myAnim.ResetTrigger("StartAttacking");
             Retarget();
             yield break;
         }
@@ -153,7 +161,7 @@ public class RobotDamager : RobotPart
             }
         }
 
-        myRobot.Movement.StartMoving();
+        myRobot.StartMoving();
         myRobot.SetHasTarget(false);
         currentTarget = null;
 
