@@ -122,7 +122,11 @@ public class Robot : MonoBehaviour
         r.transform.position = position;
         r.Team = team;
 
+
+        rm.transform.parent.position = Vector2.zero;
         rm.transform.parent.SetParent(robotGO.transform, false);
+
+        rd.transform.parent.position = Vector2.zero;
         rd.transform.parent.SetParent(robotGO.transform, false);
 
         r.BeginPlay();

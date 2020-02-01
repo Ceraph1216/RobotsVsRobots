@@ -31,6 +31,7 @@ public class PartTester : MonoBehaviour
     {
         RobotMovement rm = fastMovementPool.Spawn().GetComponentInChildren<RobotMovement>();
         rm.name = fastMovementPartString;
+        rm.transform.parent.position = 2f * Vector2.down;
         movementInventory.Add(rm);
     }
 
@@ -38,6 +39,7 @@ public class PartTester : MonoBehaviour
     {
         RobotMovement rm = slowMovementPool.Spawn().GetComponentInChildren<RobotMovement>();
         rm.name = slowMovementPartString;
+        rm.transform.parent.position = 2f * Vector2.down;
         movementInventory.Add(rm);
     }
 
@@ -45,12 +47,14 @@ public class PartTester : MonoBehaviour
     {
         RobotDamager rd = meleeDamagerPool.Spawn().GetComponentInChildren<RobotDamager>();
         rd.name = meleeDamagertPartString;
+        rd.transform.parent.position = 2f * Vector2.down;
         damagerInventory.Add(rd);
     }
 
     void AddRangedDamager()
     {
         RobotDamager rd = rangedDamagerPool.Spawn().GetComponentInChildren<RobotDamager>();
+        rd.transform.parent.position = 2f * Vector2.down;
         rd.name = rangedDamagerPartString;
         damagerInventory.Add(rd);
     }
