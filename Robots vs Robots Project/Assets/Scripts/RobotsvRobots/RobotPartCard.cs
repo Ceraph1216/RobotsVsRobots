@@ -53,12 +53,16 @@ public class RobotPartCard : MonoBehaviour
 
     public void Select ()
     {
-        //_selectionHighlight.enabled = true;
+        Color l_newColor = _cardImage.color;
+        l_newColor.a = 0.5f;
+        _cardImage.color = l_newColor;
     }
 
     public void Deselect ()
     {
-        //_selectionHighlight.enabled = false;
+        Color l_newColor = _cardImage.color;
+        l_newColor.a = 1f;
+        _cardImage.color = l_newColor;
     }
 
     public void OnMatch ()
