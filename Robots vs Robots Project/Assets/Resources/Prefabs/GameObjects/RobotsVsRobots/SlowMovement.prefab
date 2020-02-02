@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMoving: 0
   moveSpeed: 1
-  bonusHealth: 2
+  bonusHealth: 3
 --- !u!212 &4231141256039171309
 SpriteRenderer:
   m_ObjectHideFlags: 0
