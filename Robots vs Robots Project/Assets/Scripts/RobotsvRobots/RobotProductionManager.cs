@@ -9,6 +9,7 @@ public class RobotProductionManager : MonoBehaviour
 
     [SerializeField] private float spawnTime;
     [SerializeField] private Transform selectorP1;
+    [SerializeField] private Transform selectorP2;
     [SerializeField] private PartSpawn[] possibleSpawns;
     [SerializeField] private RobotPartCard[] cardGridP1;
     [SerializeField] private RobotPartCard[] cardGridP2;
