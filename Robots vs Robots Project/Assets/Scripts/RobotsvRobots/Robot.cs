@@ -74,6 +74,7 @@ public class Robot : MonoBehaviour
         myDamager.RegisterWithRobot(this);
 
         myMovement = GetComponentInChildren<RobotMovement>();
+        health += myMovement.BonusHealth;
         myMovement.RegisterWithRobot(this);
 
         if (team == RobotTeam.Left) transform.rotation = Quaternion.LookRotation(Vector3.back);
@@ -88,7 +89,7 @@ public class Robot : MonoBehaviour
 
     public void ReduceHealth(int reduceAmount)
     {
-        Debug.Log("robot of type: "+ myDamager.myDamageType + " losing health by: " + reduceAmount);
+        Debug.Log("robot losing health by: " + reduceAmount);
         this.health = Mathf.Max(0, health - reduceAmount);
 
         if (this.health <= (maxHealth / 2))

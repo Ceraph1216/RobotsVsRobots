@@ -16,38 +16,20 @@ public class RobotProductionManager : MonoBehaviour
     private float _currentSpawnTimeP1;
     private float _currentSpawnTimeP2;
 
-    Dictionary<Robot.RobotTeam, RobotMovement> selectedMovement;
-    Dictionary<Robot.RobotTeam, RobotDamager> selectedDamager;
-
     [SerializeField] List<GameObject> lanes;
-
-    Dictionary<Robot.RobotTeam, int> cursorPositions;
-
-    Dictionary<Robot.RobotTeam, Robot> curRobots;
-
-    Dictionary<Robot.RobotTeam, List<int>> recentPRNGResults;
 
     [SerializeField] float leftSpawnX;
     [SerializeField] float rightSpawnX;
+
+    [SerializeField] Dictionary<Robot.RobotTeam, RobotPlayer> players;
 
     void Awake ()
     {
         instance = this;
 
-        selectedMovement = new Dictionary<Robot.RobotTeam, RobotMovement>();
-        selectedDamager = new Dictionary<Robot.RobotTeam, RobotDamager>();
-
-        recentPRNGResults = new Dictionary<Robot.RobotTeam, List<int>>();
-        recentPRNGResults.Add(Robot.RobotTeam.Left, new List<int>());
-        recentPRNGResults.Add(Robot.RobotTeam.Right, new List<int>());
-
-        cursorPositions = new Dictionary<Robot.RobotTeam, int>();
-        cursorPositions.Add(Robot.RobotTeam.Left, 0);
-        cursorPositions.Add(Robot.RobotTeam.Right, 0);
-
-        curRobots = new Dictionary<Robot.RobotTeam, Robot>();
-        curRobots.Add(Robot.RobotTeam.Left, null);
-        curRobots.Add(Robot.RobotTeam.Right, null);
+        players = new Dictionary<Robot.RobotTeam, RobotPlayer>();
+        players.Add(Robot.RobotTeam.Left, new RobotPlayer());
+        players.Add(Robot.RobotTeam.Right, new RobotPlayer());
     }
 
     void Update ()
@@ -151,7 +133,7 @@ public class RobotProductionManager : MonoBehaviour
 
 
             Vector2 robotPos = GetLaneStartPosition(team);
-            curRobots[team] = Robot.SpawnRobot(rm, rd, robotPos, team);
+            players[team].curRobot = Robot.SpawnRobot(rm, rd, robotPos, team);
 
             p_part1.OnMatch();
             p_part2.OnMatch();
@@ -167,13 +149,13 @@ public class RobotProductionManager : MonoBehaviour
 
     void CursorUp(Robot.RobotTeam team)
     {
-        cursorPositions[team] = (cursorPositions[team] + lanes.Count - 1) % lanes.Count;
+        players[team].cursorPosition = (players[team].cursorPosition + lanes.Count - 1) % lanes.Count;
         UpdateRobotPositions();
     }
 
     void CursorDown(Robot.RobotTeam team)
     {
-        cursorPositions[team] = (cursorPositions[team] + lanes.Count + 1) % lanes.Count;
+        players[team].cursorPosition = (players[team].cursorPosition + lanes.Count + 1) % lanes.Count;
         UpdateRobotPositions();
     }
 
@@ -185,7 +167,7 @@ public class RobotProductionManager : MonoBehaviour
 
     void UpdateRobotPosition(Robot.RobotTeam team)
     {
-        Robot curRobot = curRobots[team];
+        Robot curRobot = players[team].curRobot;
         if (curRobot != null)
         {
             curRobot.transform.position = GetLaneStartPosition(team);
@@ -194,15 +176,15 @@ public class RobotProductionManager : MonoBehaviour
 
     Vector2 GetLaneStartPosition(Robot.RobotTeam team)
     {
-        return new Vector2(team == Robot.RobotTeam.Left ? leftSpawnX : rightSpawnX, lanes[cursorPositions[team]].transform.position.y);
+        return new Vector2(team == Robot.RobotTeam.Left ? leftSpawnX : rightSpawnX, lanes[players[team].cursorPosition].transform.position.y);
     }
 
     private void ReleaseRobot(Robot.RobotTeam team)
     {
-        if (curRobots[team] == null) return;
+        if (players[team].curRobot == null) return;
 
-        curRobots[team].StartActivity();
-        curRobots[team] = null;
+        players[team].curRobot.StartActivity();
+        players[team].curRobot = null;
 
         Debug.Log("Set player to part selection: " + team);
     }
@@ -210,9 +192,9 @@ public class RobotProductionManager : MonoBehaviour
     public float GetPRNGPartNumber(Robot.RobotTeam team)
     {
         int range = 4;
-        int recentCount = 8;
+        int recentCount = 4;
 
-        List<int> recents = recentPRNGResults[team];
+        List<int> recents = players[team].recentPRNGResults;
 
         int result;
 

@@ -7,7 +7,7 @@ using UnityEngine;
 public class RobotDamager : RobotPart
 {
     [SerializeField] Robot currentTarget;
-    [SerializeField] float attackTime;
+    [SerializeField] int attackDamage;
 
     [SerializeField] List<Robot> targetList;
 
@@ -38,14 +38,6 @@ public class RobotDamager : RobotPart
         }
     }
 
-    [System.Serializable]
-    public enum DamageType{
-        Rock=0,
-        Paper=1,
-        Scissors=2
-    }
-
-    public DamageType myDamageType;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -74,7 +66,6 @@ public class RobotDamager : RobotPart
 
     void StartAttacking(Robot otherRD)
     {
-        Debug.Log("robot of type: " + myDamageType + " attacking");
         currentTarget = otherRD;
 
         myRobot.Movement.StopMoving();
@@ -178,7 +169,7 @@ public class RobotDamager : RobotPart
         return 3; // strong
         */
 
-        return 2;
+        return attackDamage;
     }
 
     public override void RegisterWithRobot(Robot r)
