@@ -6,7 +6,12 @@ public class RobotProductionManager : MonoBehaviour
 {
     public static RobotProductionManager instance;
 
+    [SerializeField] private float spawnTime;
+    [SerializeField] private PartSpawn[] possibleSpawns;
+    [SerializeField] private RobotPartCard[] cardGrid;
+
     private RobotPartCard _selectedPart;
+    private float _currentSpawnTime;
 
     Dictionary<Robot.RobotTeam, RobotMovement> selectedMovement;
     Dictionary<Robot.RobotTeam, RobotDamager> selectedDamager;
@@ -40,6 +45,34 @@ public class RobotProductionManager : MonoBehaviour
         curRobots = new Dictionary<Robot.RobotTeam, Robot>();
         curRobots.Add(Robot.RobotTeam.Left, null);
         curRobots.Add(Robot.RobotTeam.Right, null);
+    }
+
+    void Update ()
+    {
+        if (_currentSpawnTime >= spawnTime)
+        {
+            if (SpawnCard())
+            {
+                _currentSpawnTime = 0;
+            }
+        }
+
+        _currentSpawnTime += Time.deltaTime;
+    }
+
+    private bool SpawnCard ()
+    {
+        for (int i = 0; i < cardGrid.Length; i++)
+        {
+            RobotPartCard l_currentCard = cardGrid[i];
+            if (l_currentCard.isAvailable)
+            {
+                PartSpawn l_randomSpawn = possibleSpawns[(int)GetPRNGPartNumber(Robot.RobotTeam.Left)];
+                l_currentCard.Populate(l_randomSpawn.partIcon, l_randomSpawn.prefabToSpawn, l_randomSpawn.partType);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void SelectPart (Robot.RobotTeam team, RobotPartCard p_part)
@@ -178,6 +211,7 @@ public class RobotProductionManager : MonoBehaviour
 
         recents.Add(result);
         if (recents.Count > recentCount) recents.RemoveAt(0);
+         Debug.Log("PRNG result: " + result);
         return result;
     }
 
@@ -229,4 +263,12 @@ public class RobotProductionManager : MonoBehaviour
             ReleaseRobot(Robot.RobotTeam.Right);
         }
     }
+}
+
+[System.Serializable]
+public class PartSpawn
+{
+    public string prefabToSpawn;
+    public Sprite partIcon;
+    public PartType partType;
 }
