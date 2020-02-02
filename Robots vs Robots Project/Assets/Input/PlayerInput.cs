@@ -129,6 +129,153 @@ public class @PlayerInput : IInputActionCollection, IDisposable
             ]
         },
         {
+            ""name"": ""MatchControlsP2"",
+            ""id"": ""f85ab931-9c2a-4385-ba72-224863c96459"",
+            ""actions"": [
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""513dcc71-ddb3-4b80-93f4-d1df81f7d031"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Up"",
+                    ""type"": ""Button"",
+                    ""id"": ""84951828-3209-409d-b6ea-785ba6041ed2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""9379d76f-8e1c-489c-8e27-e8b5aeae27e8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""74179e60-d345-4238-9f5f-ad6f1cba7f7d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""2111e740-404b-4f23-91ab-c2be2ddcc3ea"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4c5b7e06-c4ea-4643-ae36-37417b99e1c5"",
+                    ""path"": ""<XInputController>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0c01643-4fb8-4244-a093-63185beb5776"",
+                    ""path"": ""<XInputController>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb79c5e4-eed7-4355-b99a-51ce4c70b44e"",
+                    ""path"": ""<XInputController>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c8f81b2-e573-4f86-b636-b2e18a25d437"",
+                    ""path"": ""<XInputController>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f292ec2b-2257-45e4-a310-1aacc8ec8fb7"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d52417b0-6a74-4b39-9ffb-f2b29a151fd0"",
+                    ""path"": ""<XInputController>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16539638-78ff-41d3-8ce0-ca49bc3ff640"",
+                    ""path"": ""<XInputController>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd4afeb9-1037-4003-ba5a-172bf625e55d"",
+                    ""path"": ""<XInputController>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""adc8bae7-64bb-4ab3-93c3-7761a8b4d884"",
+                    ""path"": ""<XInputController>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""PlaceControls"",
             ""id"": ""c74bb175-9625-4b8b-a017-8beb28754ec8"",
             ""actions"": [
@@ -203,6 +350,93 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlaceControlsP2"",
+            ""id"": ""a4a6c826-8a5b-4a11-a876-6a8a5038c3d3"",
+            ""actions"": [
+                {
+                    ""name"": ""Up"",
+                    ""type"": ""Button"",
+                    ""id"": ""62d44ead-b63b-4600-a962-501f485837e9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""d0b0c87d-29a1-4f8f-b578-cd6754d816b4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""e1829687-0f60-4584-8ac6-0c1df4d1728a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a94d1227-08be-48d1-8d89-7d66dce83854"",
+                    ""path"": ""<XInputController>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77f5a2ad-8c6c-4cfa-96dc-48e14657dd6b"",
+                    ""path"": ""<XInputController>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0b4f2c2-418c-4eee-b939-68c60f47a040"",
+                    ""path"": ""<XInputController>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aefde57f-0048-41d0-b4ad-327597281729"",
+                    ""path"": ""<XInputController>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ea2c187-b5e5-4f87-bcdd-007903bc6680"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -214,11 +448,23 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_MatchControls_Down = m_MatchControls.FindAction("Down", throwIfNotFound: true);
         m_MatchControls_Left = m_MatchControls.FindAction("Left", throwIfNotFound: true);
         m_MatchControls_Right = m_MatchControls.FindAction("Right", throwIfNotFound: true);
+        // MatchControlsP2
+        m_MatchControlsP2 = asset.FindActionMap("MatchControlsP2", throwIfNotFound: true);
+        m_MatchControlsP2_Select = m_MatchControlsP2.FindAction("Select", throwIfNotFound: true);
+        m_MatchControlsP2_Up = m_MatchControlsP2.FindAction("Up", throwIfNotFound: true);
+        m_MatchControlsP2_Down = m_MatchControlsP2.FindAction("Down", throwIfNotFound: true);
+        m_MatchControlsP2_Left = m_MatchControlsP2.FindAction("Left", throwIfNotFound: true);
+        m_MatchControlsP2_Right = m_MatchControlsP2.FindAction("Right", throwIfNotFound: true);
         // PlaceControls
         m_PlaceControls = asset.FindActionMap("PlaceControls", throwIfNotFound: true);
         m_PlaceControls_Up = m_PlaceControls.FindAction("Up", throwIfNotFound: true);
         m_PlaceControls_Down = m_PlaceControls.FindAction("Down", throwIfNotFound: true);
         m_PlaceControls_Confirm = m_PlaceControls.FindAction("Confirm", throwIfNotFound: true);
+        // PlaceControlsP2
+        m_PlaceControlsP2 = asset.FindActionMap("PlaceControlsP2", throwIfNotFound: true);
+        m_PlaceControlsP2_Up = m_PlaceControlsP2.FindAction("Up", throwIfNotFound: true);
+        m_PlaceControlsP2_Down = m_PlaceControlsP2.FindAction("Down", throwIfNotFound: true);
+        m_PlaceControlsP2_Confirm = m_PlaceControlsP2.FindAction("Confirm", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -330,6 +576,71 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     }
     public MatchControlsActions @MatchControls => new MatchControlsActions(this);
 
+    // MatchControlsP2
+    private readonly InputActionMap m_MatchControlsP2;
+    private IMatchControlsP2Actions m_MatchControlsP2ActionsCallbackInterface;
+    private readonly InputAction m_MatchControlsP2_Select;
+    private readonly InputAction m_MatchControlsP2_Up;
+    private readonly InputAction m_MatchControlsP2_Down;
+    private readonly InputAction m_MatchControlsP2_Left;
+    private readonly InputAction m_MatchControlsP2_Right;
+    public struct MatchControlsP2Actions
+    {
+        private @PlayerInput m_Wrapper;
+        public MatchControlsP2Actions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Select => m_Wrapper.m_MatchControlsP2_Select;
+        public InputAction @Up => m_Wrapper.m_MatchControlsP2_Up;
+        public InputAction @Down => m_Wrapper.m_MatchControlsP2_Down;
+        public InputAction @Left => m_Wrapper.m_MatchControlsP2_Left;
+        public InputAction @Right => m_Wrapper.m_MatchControlsP2_Right;
+        public InputActionMap Get() { return m_Wrapper.m_MatchControlsP2; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MatchControlsP2Actions set) { return set.Get(); }
+        public void SetCallbacks(IMatchControlsP2Actions instance)
+        {
+            if (m_Wrapper.m_MatchControlsP2ActionsCallbackInterface != null)
+            {
+                @Select.started -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnSelect;
+                @Up.started -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnUp;
+                @Up.performed -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnUp;
+                @Up.canceled -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnUp;
+                @Down.started -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnDown;
+                @Down.performed -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnDown;
+                @Down.canceled -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnDown;
+                @Left.started -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnLeft;
+                @Right.started -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_MatchControlsP2ActionsCallbackInterface.OnRight;
+            }
+            m_Wrapper.m_MatchControlsP2ActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
+                @Up.started += instance.OnUp;
+                @Up.performed += instance.OnUp;
+                @Up.canceled += instance.OnUp;
+                @Down.started += instance.OnDown;
+                @Down.performed += instance.OnDown;
+                @Down.canceled += instance.OnDown;
+                @Left.started += instance.OnLeft;
+                @Left.performed += instance.OnLeft;
+                @Left.canceled += instance.OnLeft;
+                @Right.started += instance.OnRight;
+                @Right.performed += instance.OnRight;
+                @Right.canceled += instance.OnRight;
+            }
+        }
+    }
+    public MatchControlsP2Actions @MatchControlsP2 => new MatchControlsP2Actions(this);
+
     // PlaceControls
     private readonly InputActionMap m_PlaceControls;
     private IPlaceControlsActions m_PlaceControlsActionsCallbackInterface;
@@ -378,6 +689,55 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         }
     }
     public PlaceControlsActions @PlaceControls => new PlaceControlsActions(this);
+
+    // PlaceControlsP2
+    private readonly InputActionMap m_PlaceControlsP2;
+    private IPlaceControlsP2Actions m_PlaceControlsP2ActionsCallbackInterface;
+    private readonly InputAction m_PlaceControlsP2_Up;
+    private readonly InputAction m_PlaceControlsP2_Down;
+    private readonly InputAction m_PlaceControlsP2_Confirm;
+    public struct PlaceControlsP2Actions
+    {
+        private @PlayerInput m_Wrapper;
+        public PlaceControlsP2Actions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Up => m_Wrapper.m_PlaceControlsP2_Up;
+        public InputAction @Down => m_Wrapper.m_PlaceControlsP2_Down;
+        public InputAction @Confirm => m_Wrapper.m_PlaceControlsP2_Confirm;
+        public InputActionMap Get() { return m_Wrapper.m_PlaceControlsP2; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlaceControlsP2Actions set) { return set.Get(); }
+        public void SetCallbacks(IPlaceControlsP2Actions instance)
+        {
+            if (m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface != null)
+            {
+                @Up.started -= m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface.OnUp;
+                @Up.performed -= m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface.OnUp;
+                @Up.canceled -= m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface.OnUp;
+                @Down.started -= m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface.OnDown;
+                @Down.performed -= m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface.OnDown;
+                @Down.canceled -= m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface.OnDown;
+                @Confirm.started -= m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface.OnConfirm;
+                @Confirm.performed -= m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface.OnConfirm;
+                @Confirm.canceled -= m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface.OnConfirm;
+            }
+            m_Wrapper.m_PlaceControlsP2ActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Up.started += instance.OnUp;
+                @Up.performed += instance.OnUp;
+                @Up.canceled += instance.OnUp;
+                @Down.started += instance.OnDown;
+                @Down.performed += instance.OnDown;
+                @Down.canceled += instance.OnDown;
+                @Confirm.started += instance.OnConfirm;
+                @Confirm.performed += instance.OnConfirm;
+                @Confirm.canceled += instance.OnConfirm;
+            }
+        }
+    }
+    public PlaceControlsP2Actions @PlaceControlsP2 => new PlaceControlsP2Actions(this);
     public interface IMatchControlsActions
     {
         void OnSelect(InputAction.CallbackContext context);
@@ -386,7 +746,21 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
     }
+    public interface IMatchControlsP2Actions
+    {
+        void OnSelect(InputAction.CallbackContext context);
+        void OnUp(InputAction.CallbackContext context);
+        void OnDown(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
+    }
     public interface IPlaceControlsActions
+    {
+        void OnUp(InputAction.CallbackContext context);
+        void OnDown(InputAction.CallbackContext context);
+        void OnConfirm(InputAction.CallbackContext context);
+    }
+    public interface IPlaceControlsP2Actions
     {
         void OnUp(InputAction.CallbackContext context);
         void OnDown(InputAction.CallbackContext context);

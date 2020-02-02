@@ -27,7 +27,9 @@ public class RobotProductionManager : MonoBehaviour
     [SerializeField] float rightSpawnX;
 
     private int _gridIndexP1;
+    private int _gridIndexP2;
     private RobotPartCard _hoverCardP1;
+    private RobotPartCard _hoverCardP2;
 
     [SerializeField] Dictionary<Robot.RobotTeam, RobotPlayer> players;
     [SerializeField] List<Image> leftHealthImages;
@@ -43,14 +45,23 @@ public class RobotProductionManager : MonoBehaviour
         instance = this;
 
         playerInput = new PlayerInput();
-        playerInput.MatchControls.Up.performed += ctx => MoveUp();
-        playerInput.MatchControls.Down.performed += ctx => MoveDown();
-        playerInput.MatchControls.Left.performed += ctx => MoveLeft();
-        playerInput.MatchControls.Right.performed += ctx => MoveRight();
-        playerInput.MatchControls.Select.performed += ctx => InputSelect();
+        playerInput.MatchControls.Up.performed += ctx => MoveUp(Robot.RobotTeam.Left);
+        playerInput.MatchControls.Down.performed += ctx => MoveDown(Robot.RobotTeam.Left);
+        playerInput.MatchControls.Left.performed += ctx => MoveLeft(Robot.RobotTeam.Left);
+        playerInput.MatchControls.Right.performed += ctx => MoveRight(Robot.RobotTeam.Left);
+        playerInput.MatchControls.Select.performed += ctx => InputSelect(Robot.RobotTeam.Left);
         playerInput.PlaceControls.Up.performed += ctx => CursorUp(Robot.RobotTeam.Left);
         playerInput.PlaceControls.Down.performed += ctx => CursorDown(Robot.RobotTeam.Left);
         playerInput.PlaceControls.Confirm.performed += ctx => ReleaseRobot(Robot.RobotTeam.Left);
+
+        playerInput.MatchControlsP2.Up.performed += ctx => MoveUp();
+        playerInput.MatchControlsP2.Down.performed += ctx => MoveDown();
+        playerInput.MatchControlsP2.Left.performed += ctx => MoveLeft();
+        playerInput.MatchControlsP2.Right.performed += ctx => MoveRight();
+        playerInput.MatchControlsP2.Select.performed += ctx => InputSelect();
+        playerInput.PlaceControlsP2.Up.performed += ctx => CursorUp(Robot.RobotTeam.Left);
+        playerInput.PlaceControlsP2.Down.performed += ctx => CursorDown(Robot.RobotTeam.Left);
+        playerInput.PlaceControlsP2.Confirm.performed += ctx => ReleaseRobot(Robot.RobotTeam.Left);
 
         players = new Dictionary<Robot.RobotTeam, RobotPlayer>();
         RobotPlayer leftPlayer = new RobotPlayer();
@@ -68,7 +79,9 @@ public class RobotProductionManager : MonoBehaviour
         playerInput.Enable();
         playerInput.PlaceControls.Disable();
         _gridIndexP1 = cardGridP1.Length -1;
+        _gridIndexP2 = cardGridP2.Length -1;
         HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
+        HoverCard(Robot.RobotTeam.Right, _gridIndexP2);
     }
 
     void Update ()
@@ -93,11 +106,18 @@ public class RobotProductionManager : MonoBehaviour
         _currentSpawnTimeP2 += Time.deltaTime;
     }
 
-    private void MoveUp ()
+    private void MoveUp (Robot.RobotTeam p_team)
     {
-        _gridIndexP1 += 2;
-        _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length -1);
-        HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
+        if (p_team == Robot.RobotTeam.Left)
+        {
+            _gridIndexP1 += 2;
+            _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length -1);
+            HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
+        } else {
+            _gridIndexP2 += 2;
+            _gridIndexP2 = Mathf.Min(_gridIndexP2, cardGridP2.Length -1);
+            HoverCard(Robot.RobotTeam.Right, _gridIndexP2);
+        }
     }
 
     private void MoveDown ()
