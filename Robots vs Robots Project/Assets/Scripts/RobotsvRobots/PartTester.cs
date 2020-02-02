@@ -17,10 +17,9 @@ public class PartTester : MonoBehaviour
     Dictionary<Robot.RobotTeam, List<RobotDamager>> damagerInventory;
 
     [SerializeField] List<GameObject> lanes;
-    int cursorPosition;
+    Dictionary<Robot.RobotTeam, int> cursorPositions;
 
-    Robot curLeftRobot;
-    Robot curRightRobot;
+    Dictionary<Robot.RobotTeam, Robot> curRobots;
 
     void Awake()
     {
@@ -36,6 +35,14 @@ public class PartTester : MonoBehaviour
         damagerInventory = new Dictionary<Robot.RobotTeam, List<RobotDamager>>();
         damagerInventory.Add(Robot.RobotTeam.Left, new List<RobotDamager>());
         damagerInventory.Add(Robot.RobotTeam.Right, new List<RobotDamager>());
+
+        cursorPositions = new Dictionary<Robot.RobotTeam, int>();
+        cursorPositions.Add(Robot.RobotTeam.Left, 0);
+        cursorPositions.Add(Robot.RobotTeam.Right, 0);
+
+        curRobots = new Dictionary<Robot.RobotTeam, Robot>();
+        curRobots.Add(Robot.RobotTeam.Left, null);
+        curRobots.Add(Robot.RobotTeam.Right, null);
     }
 
     void AddFastMovement(Robot.RobotTeam team)
@@ -96,36 +103,17 @@ public class PartTester : MonoBehaviour
         RobotMovement m = movementInventory[team][0];
         RobotDamager d = damagerInventory[team][0];
 
-        Robot r = Robot.SpawnRobot(m, d, robotPos, team);
-
-        if (team == Robot.RobotTeam.Left)
-        {
-            curLeftRobot = r;
-        }
-        else
-        {
-            curRightRobot = r;
-        }
+        curRobots[team] = Robot.SpawnRobot(m, d, robotPos, team);
     }
     
-    private void SpawnAsLeft()
+    private void ReleaseRobot(Robot.RobotTeam team)
     {
-        if (curLeftRobot == null) return;
+        if (curRobots[team] == null) return;
 
-        curLeftRobot.StartActivity();
-        curLeftRobot = null;
+        curRobots[team].StartActivity();
+        curRobots[team] = null;
 
-        SpawnQueueCheck(Robot.RobotTeam.Left);
-    }
-
-    private void SpawnAsRight()
-    {
-        if (curRightRobot == null) return;
-
-        curRightRobot.StartActivity();
-        curRightRobot = null;
-
-        SpawnQueueCheck(Robot.RobotTeam.Right);
+        SpawnQueueCheck(team);
     }
 
     private void SpawnQueueCheck(Robot.RobotTeam team)
@@ -185,57 +173,72 @@ movementInventory[team].RemoveAt(0);
             AddRangedDamager(Robot.RobotTeam.Right);
         }
 
-        GUI.Box(new Rect(330, 10, 140, 90), "Choose Lane");
+        GUI.Box(new Rect(330, 10, 140, 90), "Choose Left's Lane");
 
-        if (GUI.Button(new Rect( 340, 40, 120,20), "lane up"))
+        if (GUI.Button(new Rect(340, 40, 120, 20), "lane up"))
         {
-            CursorUp();
+            CursorUp(Robot.RobotTeam.Left);
         }
 
-        if (GUI.Button(new Rect( 340, 70, 120, 20), "lane down"))
+        if (GUI.Button(new Rect(340, 70, 120, 20), "lane down"))
         {
-            CursorDown();
+            CursorDown(Robot.RobotTeam.Left);
         }
 
-        GUI.Box(new Rect(480, 10, 120, 90), "Spawns");
+        GUI.Box(new Rect(480, 10, 140, 90), "Choose Right's Lane");
 
-        if (GUI.Button(new Rect(490, 40, 100, 20), "Spawn as Left"))
+        if (GUI.Button(new Rect(490, 40, 120, 20), "lane up"))
         {
-            SpawnAsLeft();
+            CursorUp(Robot.RobotTeam.Right);
         }
 
-        if (GUI.Button(new Rect(490, 70, 100, 20), "Spawn as Right"))
+        if (GUI.Button(new Rect(490, 70, 120, 20), "lane down"))
         {
-            SpawnAsRight();
+            CursorDown(Robot.RobotTeam.Right);
+        }
+
+        GUI.Box(new Rect(630, 10, 120, 90), "Spawns");
+
+        if (GUI.Button(new Rect(640, 40, 100, 20), "Spawn as Left"))
+        {
+            ReleaseRobot(Robot.RobotTeam.Left);
+        }
+
+        if (GUI.Button(new Rect(640, 70, 100, 20), "Spawn as Right"))
+        {
+            ReleaseRobot(Robot.RobotTeam.Right);
         }
     }
 
-    void CursorUp()
+    void CursorUp(Robot.RobotTeam team)
     {
-        cursorPosition = (cursorPosition + lanes.Count - 1) % lanes.Count;
+        cursorPositions[team] = (cursorPositions[team] + lanes.Count - 1) % lanes.Count;
         UpdateRobotPositions();
     }
 
-    void CursorDown()
+    void CursorDown(Robot.RobotTeam team)
     {
-        cursorPosition = (cursorPosition + lanes.Count + 1) % lanes.Count;
+        cursorPositions[team] = (cursorPositions[team] + lanes.Count + 1) % lanes.Count;
         UpdateRobotPositions();
     }
 
     void UpdateRobotPositions()
     {
-        if (curLeftRobot != null)
+        UpdateRobotPosition(Robot.RobotTeam.Left);
+        UpdateRobotPosition(Robot.RobotTeam.Right);
+    }
+
+    void UpdateRobotPosition(Robot.RobotTeam team)
+    {
+        Robot curRobot = curRobots[team];
+        if (curRobot != null)
         {
-            curLeftRobot.transform.position = GetLaneStartPosition(Robot.RobotTeam.Left);
-        }
-        if (curRightRobot != null)
-        {
-            curRightRobot.transform.position = GetLaneStartPosition(Robot.RobotTeam.Right);
+            curRobot.transform.position = GetLaneStartPosition(team);
         }
     }
 
     Vector2 GetLaneStartPosition(Robot.RobotTeam team)
     {
-        return (team == Robot.RobotTeam.Left ? Vector2.left : Vector2.right) * 5 + lanes[cursorPosition].transform.position.y * Vector2.up;
+        return (team == Robot.RobotTeam.Left ? Vector2.left : Vector2.right) * 5 + lanes[cursorPositions[team]].transform.position.y * Vector2.up;
     }
 }
