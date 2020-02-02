@@ -412,6 +412,8 @@ public class RobotProductionManager : MonoBehaviour
 
     public void TakeDamage(Robot.RobotTeam team)
     {
+        if (players[team].health < 0) return;
+
         players[team].health -= 1;
         int newHealth = players[team].health;
 
@@ -429,7 +431,7 @@ public class RobotProductionManager : MonoBehaviour
             rightAvatar.sprite = rightOuchSprite;
             leftAvatar.sprite = leftYesYesYesSprite;
         }
-        StopCoroutine(resetAvatarCoroutine);
+        if (resetAvatarCoroutine != null) StopCoroutine(resetAvatarCoroutine);
 
         if (players[team].health < 1)
         {
@@ -446,6 +448,7 @@ public class RobotProductionManager : MonoBehaviour
         yield return new WaitForSeconds(resetAvatarTime);
         leftAvatar.sprite = leftNeutralSprite;
         rightAvatar.sprite = rightNeutralSprite;
+        resetAvatarCoroutine = null;
     }
 
     private void OnGUI()

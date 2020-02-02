@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 236559227}
   - component: {fileID: 236559226}
   m_Layer: 5
-  m_Name: P1Portrait
+  m_Name: P2Portrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,22 +483,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 236559224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: f1b034c7286e74bde9523b46c3fb4f1e, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+  m_Sprite: {fileID: 21300000, guid: f1b034c7286e74bde9523b46c3fb4f1e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &236559227
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4936,8 +4939,19 @@ MonoBehaviour:
   - {fileID: 1761998011}
   - {fileID: 765061558}
   - {fileID: 1402539920}
+  leftAvatar: {fileID: 1937659464}
+  rightAvatar: {fileID: 236559226}
+  leftNeutralSprite: {fileID: 21300000, guid: ad7457f03233042778c6a234749957e0, type: 3}
+  leftOuchSprite: {fileID: 21300000, guid: b8fec5f443dee4af0bec6fa71c62b4f5, type: 3}
+  leftYesYesYesSprite: {fileID: 21300000, guid: fc07cd47ad0524a0ca3fdd4f18cccffa,
+    type: 3}
+  rightNeutralSprite: {fileID: 21300000, guid: f1b034c7286e74bde9523b46c3fb4f1e, type: 3}
+  rightOuchSprite: {fileID: 21300000, guid: 8f4e0b199fde54935ab18f9c9e289cc0, type: 3}
+  rightYesYesYesSprite: {fileID: 21300000, guid: 637cd0028c267477a9f6ea7ecbd9bc19,
+    type: 3}
   healthOnSprite: {fileID: 21300000, guid: 0bc5a83d4f597498fa2778ca223dc445, type: 3}
   healthOffSprite: {fileID: 21300000, guid: 525e2c6b0394a4e558ecabfb0fa63dc0, type: 3}
+  resetAvatarTime: 1
 --- !u!4 &1285611360
 Transform:
   m_ObjectHideFlags: 0
@@ -7537,22 +7551,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1937659462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: ad7457f03233042778c6a234749957e0, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+  m_Sprite: {fileID: 21300000, guid: ad7457f03233042778c6a234749957e0, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1937659465
 CanvasRenderer:
   m_ObjectHideFlags: 0
