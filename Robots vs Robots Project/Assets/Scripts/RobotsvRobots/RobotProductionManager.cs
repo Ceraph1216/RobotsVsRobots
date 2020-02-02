@@ -8,10 +8,13 @@ public class RobotProductionManager : MonoBehaviour
 
     [SerializeField] private float spawnTime;
     [SerializeField] private PartSpawn[] possibleSpawns;
-    [SerializeField] private RobotPartCard[] cardGrid;
+    [SerializeField] private RobotPartCard[] cardGridP1;
+    [SerializeField] private RobotPartCard[] cardGridP2;
 
-    private RobotPartCard _selectedPart;
-    private float _currentSpawnTime;
+    private RobotPartCard _selectedPartP1;
+    private RobotPartCard _selectedPartP2;
+    private float _currentSpawnTimeP1;
+    private float _currentSpawnTimeP2;
 
     Dictionary<Robot.RobotTeam, RobotMovement> selectedMovement;
     Dictionary<Robot.RobotTeam, RobotDamager> selectedDamager;
@@ -49,18 +52,27 @@ public class RobotProductionManager : MonoBehaviour
 
     void Update ()
     {
-        if (_currentSpawnTime >= spawnTime)
+        if (_currentSpawnTimeP1 >= spawnTime)
         {
-            if (SpawnCard())
+            if (SpawnCard(cardGridP1))
             {
-                _currentSpawnTime = 0;
+                _currentSpawnTimeP1 = 0;
             }
         }
 
-        _currentSpawnTime += Time.deltaTime;
+        if (_currentSpawnTimeP2 >= spawnTime)
+        {
+            if (SpawnCard(cardGridP2))
+            {
+                _currentSpawnTimeP2 = 0;
+            }
+        }
+
+        _currentSpawnTimeP1 += Time.deltaTime;
+        _currentSpawnTimeP2 += Time.deltaTime;
     }
 
-    private bool SpawnCard ()
+    private bool SpawnCard (RobotPartCard[] cardGrid)
     {
         for (int i = 0; i < cardGrid.Length; i++)
         {
@@ -77,21 +89,42 @@ public class RobotProductionManager : MonoBehaviour
 
     public void SelectPart (Robot.RobotTeam team, RobotPartCard p_part)
     {
-        if (_selectedPart == null)
+        if (team == Robot.RobotTeam.Left)
         {
-            p_part.Select();
-            _selectedPart = p_part;
-        }
-        else if (_selectedPart == p_part)
+            if (_selectedPartP1 == null)
+            {
+                p_part.Select();
+                _selectedPartP1 = p_part;
+            }
+            else if (_selectedPartP1 == p_part)
+            {
+                p_part.Deselect();
+                _selectedPartP1 = null;
+            }
+            else 
+            {
+                CompareParts(team, p_part, _selectedPartP1);
+                _selectedPartP1 = null;
+            }
+        } else 
         {
-            p_part.Deselect();
-            _selectedPart = null;
+            if (_selectedPartP2 == null)
+            {
+                p_part.Select();
+                _selectedPartP2 = p_part;
+            }
+            else if (_selectedPartP2 == p_part)
+            {
+                p_part.Deselect();
+                _selectedPartP2 = null;
+            }
+            else 
+            {
+                CompareParts(team, p_part, _selectedPartP2);
+                _selectedPartP2 = null;
+            }
         }
-        else 
-        {
-            CompareParts(team, p_part, _selectedPart);
-            _selectedPart = null;
-        }
+        
     }
 
     private void CompareParts (Robot.RobotTeam team, RobotPartCard p_part1, RobotPartCard p_part2)
