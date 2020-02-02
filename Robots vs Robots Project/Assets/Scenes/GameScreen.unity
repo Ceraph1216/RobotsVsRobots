@@ -4317,8 +4317,8 @@ MonoBehaviour:
   - {fileID: 5824498}
   - {fileID: 1722640350}
   - {fileID: 1629885046}
-  leftSpawnX: -2.5
-  rightSpawnX: 2.5
+  leftSpawnX: -4.3
+  rightSpawnX: 4.3
 --- !u!4 &1285611360
 Transform:
   m_ObjectHideFlags: 0
