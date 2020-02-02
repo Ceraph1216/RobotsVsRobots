@@ -26,7 +26,7 @@ public class RobotMoveTarget : MonoBehaviour
 
     private void DamageMyTeam()
     {
-        Debug.Log("Team " + myTeam + " has taken damage");
+        RobotProductionManager.TakeDamage(myteam);
     }
 }
 

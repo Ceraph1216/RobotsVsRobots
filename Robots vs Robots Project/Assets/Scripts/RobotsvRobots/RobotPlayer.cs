@@ -14,6 +14,8 @@ public class RobotPlayer : ScriptableObject
 
     public List<int> recentPRNGResults;
 
+    public int health;
+
 
     public RobotPlayer()
     {
