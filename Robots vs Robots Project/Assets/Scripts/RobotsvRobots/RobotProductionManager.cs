@@ -361,7 +361,8 @@ public class RobotProductionManager : MonoBehaviour
         _hoverCardP1 = null;
         _hoverCardP2 = null;
         playerInput.Disable();
-         PrefabManager.instance.ClearAllPools();
+        PrefabManager.instance.ClearAllPools();
+        instance = null;
     }
 
     private void ReleaseRobot(Robot.RobotTeam team)
@@ -469,7 +470,7 @@ public class RobotProductionManager : MonoBehaviour
         resetAvatarCoroutine = null;
     }
 
-    private void OnGUI()
+    /*private void OnGUI()
     {
         GUI.Box(new Rect(180, 10, 140, 90), "PRNG testing");
         if (GUI.Button(new Rect(190, 40, 120, 20), "Get sample Left"))
@@ -516,7 +517,7 @@ public class RobotProductionManager : MonoBehaviour
         {
             ReleaseRobot(Robot.RobotTeam.Right);
         }
-    }
+    }*/
 }
 
 [System.Serializable]

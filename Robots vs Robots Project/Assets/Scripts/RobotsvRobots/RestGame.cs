@@ -8,7 +8,6 @@ public class RestGame : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScreen");
         RobotProductionManager.instance.Reset();
-        PrefabManager.instance.ClearAllPools();
     }
 
     public void OnClickTitle ()
