@@ -7,7 +7,10 @@ public class RobotMovement : RobotPart
 {
     [SerializeField] bool isMoving;
     [SerializeField] float moveSpeed;
-  
+
+    [SerializeField] int bonusHealth;
+    public int BonusHealth { get { return bonusHealth; } private set { bonusHealth = value; } }
+
 
     private void Start()
     {
