@@ -340,6 +340,8 @@ public class RobotProductionManager : MonoBehaviour
 
     public void TakeDamage(Robot.RobotTeam team)
     {
+        if (players[team].health < 0) return;
+
         players[team].health -= 1;
         int newHealth = players[team].health;
 
