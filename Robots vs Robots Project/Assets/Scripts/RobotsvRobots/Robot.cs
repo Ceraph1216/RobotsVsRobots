@@ -18,7 +18,11 @@ public class Robot : MonoBehaviour
     Rigidbody2D rb2d;
     public Rigidbody2D Rb2d { get { return rb2d; } private set { rb2d = value; } }
 
+    Collider2D myColl;
+
     ParticleSystem particles;
+    [SerializeField]
+    private GameObject smoke;
 
     [SerializeField] RobotDamager myDamager;
     public RobotDamager Damager { get { return myDamager; } private set { myDamager = value; } }
@@ -46,19 +50,23 @@ public class Robot : MonoBehaviour
 
     const string robotEntityString = "RobotEntity";
     static GameObjectPool robotEntityPool;
+    
 
     public void BeginPlay()
     {
         health = maxHealth;
         isDying = false;
-        canDealDamage = true;
+        CanDealDamage = false;
 
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.gravityScale = 0f;
 
         particles = GetComponent<ParticleSystem>();
 
-        GetComponent<Collider2D>().isTrigger = true;
+
+        myColl = GetComponent<Collider2D>();
+        myColl.isTrigger = true;
+        myColl.enabled = false;
 
         tag = "robot";
 
@@ -71,11 +79,22 @@ public class Robot : MonoBehaviour
         if (team == RobotTeam.Left) transform.rotation = Quaternion.LookRotation(Vector3.back);
     }
 
+    public void StartActivity()
+    {
+        canDealDamage = true;
+        myColl.enabled = true;
+        StartMoving();
+    }
+
     public void ReduceHealth(int reduceAmount)
     {
         Debug.Log("robot of type: "+ myDamager.myDamageType + " losing health by: " + reduceAmount);
         this.health = Mathf.Max(0, health - reduceAmount);
 
+        if (this.health <= (maxHealth / 2))
+        {
+            this.smoke.SetActive(true);
+        }
 
         if (this.health == 0)
         {
@@ -111,9 +130,10 @@ public class Robot : MonoBehaviour
 
         myMovement.transform.parent.SetParent(null);
         PrefabManager.instance.ObjectPool(myMovement.name).Unspawn(myMovement.transform.parent.gameObject);
+        this.smoke.SetActive(false);
     }
 
-    public static void SpawnRobot(RobotMovement rm, RobotDamager rd, Vector3 position, RobotTeam team)
+    public static Robot SpawnRobot(RobotMovement rm, RobotDamager rd, Vector3 position, RobotTeam team)
     {
         if (robotEntityPool == null) robotEntityPool = PrefabManager.instance.ObjectPool(robotEntityString);
         GameObject robotGO = robotEntityPool.Spawn();
@@ -122,7 +142,6 @@ public class Robot : MonoBehaviour
         r.transform.position = position;
         r.Team = team;
 
-
         rm.transform.parent.position = Vector2.zero;
         rm.transform.parent.SetParent(robotGO.transform, false);
 
@@ -130,6 +149,7 @@ public class Robot : MonoBehaviour
         rd.transform.parent.SetParent(robotGO.transform, false);
 
         r.BeginPlay();
+        return r;
     }
 
     public void SetHasTarget(bool hasTarget)
@@ -142,5 +162,10 @@ public class Robot : MonoBehaviour
     {
         myDamager.SetIsDying(isDying);
         myMovement.SetIsDying(isDying);
+    }
+
+    public void StartMoving()
+    {
+        myMovement.StartMoving();
     }
 }

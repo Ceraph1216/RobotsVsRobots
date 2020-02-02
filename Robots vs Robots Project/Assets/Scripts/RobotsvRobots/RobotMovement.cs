@@ -12,10 +12,6 @@ public class RobotMovement : RobotPart
     private void Start()
     {
         myAnim = GetComponent<Animator>();
-        if (myRobot != null)
-        {
-            StartMoving();
-        }
     }
 
     public void StartAttacking()
@@ -38,12 +34,6 @@ public class RobotMovement : RobotPart
     {
         isMoving = false;
         myRobot.Rb2d.velocity = Vector2.zero;
-    }
-
-    public override void RegisterWithRobot(Robot r)
-    {
-        base.RegisterWithRobot(r);
-        StartMoving();
     }
 
     public override void Freeze()
