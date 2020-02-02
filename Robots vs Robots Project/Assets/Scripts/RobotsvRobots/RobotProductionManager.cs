@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +29,13 @@ public class RobotProductionManager : MonoBehaviour
     private RobotPartCard _hoverCardP1;
 
     [SerializeField] Dictionary<Robot.RobotTeam, RobotPlayer> players;
+    [SerializeField] List<Image> leftHealthImages;
+    [SerializeField] List<Image> rightHealthImages;
+
+    [SerializeField] Sprite healthOnSprite;
+    [SerializeField] Sprite healthOffSprite;
+
+
 
     void Awake ()
     {
@@ -44,8 +52,14 @@ public class RobotProductionManager : MonoBehaviour
         playerInput.PlaceControls.Confirm.performed += ctx => ReleaseRobot(Robot.RobotTeam.Left);
 
         players = new Dictionary<Robot.RobotTeam, RobotPlayer>();
-        players.Add(Robot.RobotTeam.Left, new RobotPlayer());
-        players.Add(Robot.RobotTeam.Right, new RobotPlayer());
+        RobotPlayer leftPlayer = new RobotPlayer();
+        leftPlayer.health = leftHealthImages.Count;
+
+        RobotPlayer rightPlayer = new RobotPlayer();
+        rightPlayer.health = rightHealthImages.Count;
+
+        players.Add(Robot.RobotTeam.Left, leftPlayer);
+        players.Add(Robot.RobotTeam.Right, rightPlayer);
     }
 
     void OnEnable ()
@@ -307,6 +321,21 @@ public class RobotProductionManager : MonoBehaviour
         if (recents.Count > recentCount) recents.RemoveAt(0);
          Debug.Log("PRNG result: " + result);
         return result;
+    }
+
+    public void TakeDamage(Robot.RobotTeam team)
+    {
+        players[team].health -= 1;
+        int newHealth = players[team].health;
+
+        Image imageToLose = (team == Robot.RobotTeam.Left ? leftHealthImages : rightHealthImages)[newHealth];
+
+        imageToLose.sprite = healthOffSprite;
+        
+        if (players[team].health < 1)
+        {
+            Debug.Log("player " + team + " has lost");
+        }
     }
 
     private void OnGUI()
