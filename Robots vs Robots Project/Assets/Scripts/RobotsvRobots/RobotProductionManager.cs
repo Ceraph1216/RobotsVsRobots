@@ -7,6 +7,7 @@ public class RobotProductionManager : MonoBehaviour
     public static RobotProductionManager instance;
 
     [SerializeField] private float spawnTime;
+    [SerializeField] private Transform selectorP1;
     [SerializeField] private PartSpawn[] possibleSpawns;
     [SerializeField] private RobotPartCard[] cardGridP1;
     [SerializeField] private RobotPartCard[] cardGridP2;
@@ -15,6 +16,8 @@ public class RobotProductionManager : MonoBehaviour
     private RobotPartCard _selectedPartP2;
     private float _currentSpawnTimeP1;
     private float _currentSpawnTimeP2;
+
+    private PlayerInput playerInput;
 
     Dictionary<Robot.RobotTeam, RobotMovement> selectedMovement;
     Dictionary<Robot.RobotTeam, RobotDamager> selectedDamager;
@@ -30,9 +33,19 @@ public class RobotProductionManager : MonoBehaviour
     [SerializeField] float leftSpawnX;
     [SerializeField] float rightSpawnX;
 
+    private int _gridIndexP1;
+    private RobotPartCard _hoverCardP1;
+
     void Awake ()
     {
         instance = this;
+
+        playerInput = new PlayerInput();
+        playerInput.MatchControls.Up.performed += ctx => MoveUp();
+        playerInput.MatchControls.Down.performed += ctx => MoveDown();
+        playerInput.MatchControls.Left.performed += ctx => MoveLeft();
+        playerInput.MatchControls.Right.performed += ctx => MoveRight();
+        playerInput.MatchControls.Select.performed += ctx => InputSelect();
 
         selectedMovement = new Dictionary<Robot.RobotTeam, RobotMovement>();
         selectedDamager = new Dictionary<Robot.RobotTeam, RobotDamager>();
@@ -48,6 +61,13 @@ public class RobotProductionManager : MonoBehaviour
         curRobots = new Dictionary<Robot.RobotTeam, Robot>();
         curRobots.Add(Robot.RobotTeam.Left, null);
         curRobots.Add(Robot.RobotTeam.Right, null);
+    }
+
+    void OnEnable ()
+    {
+        playerInput.Enable();
+        _gridIndexP1 = cardGridP1.Length -1;
+        HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
     }
 
     void Update ()
@@ -70,6 +90,55 @@ public class RobotProductionManager : MonoBehaviour
 
         _currentSpawnTimeP1 += Time.deltaTime;
         _currentSpawnTimeP2 += Time.deltaTime;
+    }
+
+    private void MoveUp ()
+    {
+        _gridIndexP1 += 2;
+        _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length -1);
+        HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
+    }
+
+    private void MoveDown ()
+    {
+        if (_gridIndexP1 <= 1)
+        {
+            // select trash can
+        }
+        else 
+        {
+            _gridIndexP1 -= 2;
+            HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
+        } 
+    }
+
+    private void MoveLeft ()
+    {
+        _gridIndexP1 += 1;
+        _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length -1);
+        HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
+    }
+
+    private void MoveRight ()
+    {
+        _gridIndexP1 -= 1;
+        _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length -1);
+        HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
+    }
+
+    private void InputSelect ()
+    {
+        SelectPart (Robot.RobotTeam.Left, _hoverCardP1);
+    }
+
+    private void HoverCard(Robot.RobotTeam p_team, int p_index)
+    {
+        if (p_team == Robot.RobotTeam.Left)
+        {
+            selectorP1.SetParent (cardGridP1[p_index].transform, false);
+            selectorP1.localPosition = Vector3.zero;
+            _hoverCardP1 = cardGridP1[p_index];
+        }
     }
 
     private bool SpawnCard (RobotPartCard[] cardGrid)
