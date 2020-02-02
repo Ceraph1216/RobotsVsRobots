@@ -23,26 +23,6 @@ public class PartTester : MonoBehaviour
 
     void Awake()
     {
-        fastMovementPool = PrefabManager.instance.ObjectPool(fastMovementPartString);
-        slowMovementPool = PrefabManager.instance.ObjectPool(slowMovementPartString);
-        meleeDamagerPool = PrefabManager.instance.ObjectPool(meleeDamagertPartString);
-        rangedDamagerPool = PrefabManager.instance.ObjectPool(rangedDamagerPartString);
-
-        movementInventory = new Dictionary<Robot.RobotTeam, List<RobotMovement>>();
-        movementInventory.Add(Robot.RobotTeam.Left, new List<RobotMovement>());
-        movementInventory.Add(Robot.RobotTeam.Right, new List<RobotMovement>());
-
-        damagerInventory = new Dictionary<Robot.RobotTeam, List<RobotDamager>>();
-        damagerInventory.Add(Robot.RobotTeam.Left, new List<RobotDamager>());
-        damagerInventory.Add(Robot.RobotTeam.Right, new List<RobotDamager>());
-
-        cursorPositions = new Dictionary<Robot.RobotTeam, int>();
-        cursorPositions.Add(Robot.RobotTeam.Left, 0);
-        cursorPositions.Add(Robot.RobotTeam.Right, 0);
-
-        curRobots = new Dictionary<Robot.RobotTeam, Robot>();
-        curRobots.Add(Robot.RobotTeam.Left, null);
-        curRobots.Add(Robot.RobotTeam.Right, null);
     }
 
     void AddFastMovement(Robot.RobotTeam team)
