@@ -32,12 +32,25 @@ public class RobotProductionManager : MonoBehaviour
     [SerializeField] List<Image> leftHealthImages;
     [SerializeField] List<Image> rightHealthImages;
 
+    [SerializeField] Image leftAvatar;
+    [SerializeField] Image rightAvatar;
+
+    [SerializeField] Sprite leftNeutralSprite;
+    [SerializeField] Sprite leftOuchSprite;
+    [SerializeField] Sprite leftYesYesYesSprite;
+
+    [SerializeField] Sprite rightNeutralSprite;
+    [SerializeField] Sprite rightOuchSprite;
+    [SerializeField] Sprite rightYesYesYesSprite;
+
+
     [SerializeField] Sprite healthOnSprite;
     [SerializeField] Sprite healthOffSprite;
 
+    Coroutine resetAvatarCoroutine;
+    [SerializeField] float resetAvatarTime;
 
-
-    void Awake ()
+    void Awake()
     {
         instance = this;
 
@@ -62,15 +75,15 @@ public class RobotProductionManager : MonoBehaviour
         players.Add(Robot.RobotTeam.Right, rightPlayer);
     }
 
-    void OnEnable ()
+    void OnEnable()
     {
         playerInput.Enable();
         playerInput.PlaceControls.Disable();
-        _gridIndexP1 = cardGridP1.Length -1;
+        _gridIndexP1 = cardGridP1.Length - 1;
         HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
     }
 
-    void Update ()
+    void Update()
     {
         if (_currentSpawnTimeP1 >= spawnTime)
         {
@@ -92,56 +105,56 @@ public class RobotProductionManager : MonoBehaviour
         _currentSpawnTimeP2 += Time.deltaTime;
     }
 
-    private void MoveUp ()
+    private void MoveUp()
     {
         _gridIndexP1 += 2;
-        _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length -1);
+        _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length - 1);
         HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
     }
 
-    private void MoveDown ()
+    private void MoveDown()
     {
         if (_gridIndexP1 <= 1)
         {
             // select trash can
         }
-        else 
+        else
         {
             _gridIndexP1 -= 2;
             HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
-        } 
+        }
     }
 
-    private void MoveLeft ()
+    private void MoveLeft()
     {
         _gridIndexP1 += 1;
-        _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length -1);
+        _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length - 1);
         HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
     }
 
-    private void MoveRight ()
+    private void MoveRight()
     {
         _gridIndexP1 -= 1;
-        _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length -1);
+        _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length - 1);
         HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
     }
 
-    private void InputSelect ()
+    private void InputSelect()
     {
-        SelectPart (Robot.RobotTeam.Left, _hoverCardP1);
+        SelectPart(Robot.RobotTeam.Left, _hoverCardP1);
     }
 
     private void HoverCard(Robot.RobotTeam p_team, int p_index)
     {
         if (p_team == Robot.RobotTeam.Left)
         {
-            selectorP1.SetParent (cardGridP1[p_index].transform, false);
+            selectorP1.SetParent(cardGridP1[p_index].transform, false);
             selectorP1.localPosition = Vector3.zero;
             _hoverCardP1 = cardGridP1[p_index];
         }
     }
 
-    private bool SpawnCard (RobotPartCard[] cardGrid)
+    private bool SpawnCard(RobotPartCard[] cardGrid)
     {
         for (int i = 0; i < cardGrid.Length; i++)
         {
@@ -156,7 +169,7 @@ public class RobotProductionManager : MonoBehaviour
         return false;
     }
 
-    public void SelectPart (Robot.RobotTeam team, RobotPartCard p_part)
+    public void SelectPart(Robot.RobotTeam team, RobotPartCard p_part)
     {
         if (team == Robot.RobotTeam.Left)
         {
@@ -170,12 +183,13 @@ public class RobotProductionManager : MonoBehaviour
                 p_part.Deselect();
                 _selectedPartP1 = null;
             }
-            else 
+            else
             {
                 CompareParts(team, p_part, _selectedPartP1);
                 _selectedPartP1 = null;
             }
-        } else 
+        }
+        else
         {
             if (_selectedPartP2 == null)
             {
@@ -187,16 +201,16 @@ public class RobotProductionManager : MonoBehaviour
                 p_part.Deselect();
                 _selectedPartP2 = null;
             }
-            else 
+            else
             {
                 CompareParts(team, p_part, _selectedPartP2);
                 _selectedPartP2 = null;
             }
         }
-        
+
     }
 
-    private void CompareParts (Robot.RobotTeam team, RobotPartCard p_part1, RobotPartCard p_part2)
+    private void CompareParts(Robot.RobotTeam team, RobotPartCard p_part1, RobotPartCard p_part2)
     {
         if (p_part1.partType != p_part2.partType)
         {
@@ -228,7 +242,7 @@ public class RobotProductionManager : MonoBehaviour
             p_part1.OnMatch();
             p_part2.OnMatch();
         }
-        else 
+        else
         {
             Debug.Log("Those parts are the same type, try again");
             p_part1.Deselect();
@@ -310,7 +324,7 @@ public class RobotProductionManager : MonoBehaviour
             {
                 result = Random.Range(0, range);
             }
-     
+
         }
         else
         {
@@ -319,7 +333,7 @@ public class RobotProductionManager : MonoBehaviour
 
         recents.Add(result);
         if (recents.Count > recentCount) recents.RemoveAt(0);
-         Debug.Log("PRNG result: " + result);
+        Debug.Log("PRNG result: " + result);
         return result;
     }
 
@@ -331,11 +345,34 @@ public class RobotProductionManager : MonoBehaviour
         Image imageToLose = (team == Robot.RobotTeam.Left ? leftHealthImages : rightHealthImages)[newHealth];
 
         imageToLose.sprite = healthOffSprite;
-        
+
+        if (team == Robot.RobotTeam.Left)
+        {
+            leftAvatar.sprite = leftOuchSprite;
+            rightAvatar.sprite = rightYesYesYesSprite;
+        }
+        else
+        {
+            rightAvatar.sprite = rightOuchSprite;
+            leftAvatar.sprite = leftYesYesYesSprite;
+        }
+        StopCoroutine(resetAvatarCoroutine);
+
         if (players[team].health < 1)
         {
             Debug.Log("player " + team + " has lost");
         }
+        else
+        {
+            resetAvatarCoroutine = StartCoroutine(resetAvatars());
+        }
+    }
+
+    private IEnumerator resetAvatars()
+    {
+        yield return new WaitForSeconds(resetAvatarTime);
+        leftAvatar.sprite = leftNeutralSprite;
+        rightAvatar.sprite = rightNeutralSprite;
     }
 
     private void OnGUI()
