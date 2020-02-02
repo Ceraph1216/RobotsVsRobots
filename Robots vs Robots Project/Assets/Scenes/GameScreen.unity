@@ -5103,7 +5103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3cf0a758c1a5a44cb449cbb9ba61297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 2
+  spawnTime: 1.5
   selectorP1: {fileID: 300965815}
   selectorP2: {fileID: 849711243}
   possibleSpawns:
@@ -5247,8 +5247,8 @@ MonoBehaviour:
         m_RotationOrder: 4
       StartPos: {x: 1.9085, y: 485, z: 0}
       EndPos: {x: 1.9085, y: -38, z: 0}
-      StartWorldPos: {x: 506.4047, y: 926.1, z: 0}
-      EndWorldPos: {x: 506.4047, y: 267.12, z: 0}
+      StartWorldPos: {x: 494.34747, y: 904.05, z: 0}
+      EndWorldPos: {x: 494.34747, y: 260.75998, z: 0}
     ScalePropetiesAnim:
       scaleEnabled: 0
       TweenCurveEnterScale:
@@ -6297,8 +6297,8 @@ MonoBehaviour:
         m_RotationOrder: 4
       StartPos: {x: 1.9085, y: 485, z: 0}
       EndPos: {x: 1.9085, y: -41, z: 0}
-      StartWorldPos: {x: 506.4047, y: 926.1, z: 0}
-      EndWorldPos: {x: 506.4047, y: 263.33997, z: 0}
+      StartWorldPos: {x: 494.34747, y: 904.05, z: 0}
+      EndWorldPos: {x: 494.34747, y: 257.06998, z: 0}
     ScalePropetiesAnim:
       scaleEnabled: 0
       TweenCurveEnterScale:
@@ -8989,7 +8989,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Player 1
+  m_Text: 'Player 2
 
 '
 --- !u!222 &2110645080
