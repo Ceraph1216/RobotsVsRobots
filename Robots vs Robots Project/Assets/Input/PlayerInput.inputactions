@@ -240,6 +240,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ada1f647-ad3e-49dc-b6e0-8233219a97cb",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dd4afeb9-1037-4003-ba5a-172bf625e55d",
                     "path": "<XInputController>/leftStick/right",
                     "interactions": "",
@@ -253,6 +264,17 @@
                     "name": "",
                     "id": "adc8bae7-64bb-4ab3-93c3-7761a8b4d884",
                     "path": "<XInputController>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3817befe-fa13-4814-bbfb-cced08a0eaee",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

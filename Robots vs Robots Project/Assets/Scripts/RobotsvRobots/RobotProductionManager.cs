@@ -91,6 +91,7 @@ public class RobotProductionManager : MonoBehaviour
     {
         playerInput.Enable();
         playerInput.PlaceControls.Disable();
+        playerInput.PlaceControlsP2.Disable();
 
         _gridIndexP1 = cardGridP1.Length -1;
         _gridIndexP2 = cardGridP2.Length -1;
@@ -179,11 +180,11 @@ public class RobotProductionManager : MonoBehaviour
         if (p_team == Robot.RobotTeam.Left)
         {
             _gridIndexP1 -= 1;
-            _gridIndexP1 = Mathf.Min(_gridIndexP1, cardGridP1.Length - 1);
+            _gridIndexP1 = Mathf.Max(_gridIndexP1, 0);
             HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
         } else {
             _gridIndexP2 -= 1;
-            _gridIndexP2 = Mathf.Min(_gridIndexP2, cardGridP2.Length - 1);
+            _gridIndexP2 = Mathf.Max(_gridIndexP2, 0);
             HoverCard(Robot.RobotTeam.Right, _gridIndexP2);
         }
     }
@@ -281,8 +282,14 @@ public class RobotProductionManager : MonoBehaviour
             RobotDamager rd = part1 as RobotDamager;
             RobotMovement rm;
 
-            playerInput.MatchControls.Disable();
-            playerInput.PlaceControls.Enable();
+            if (team == Robot.RobotTeam.Left)
+            {
+                playerInput.MatchControls.Disable();
+                playerInput.PlaceControls.Enable();
+            } else {
+                playerInput.MatchControlsP2.Disable();
+                playerInput.PlaceControlsP2.Enable();
+            }
 
             if (rd == null)
             {
@@ -349,8 +356,15 @@ public class RobotProductionManager : MonoBehaviour
         players[team].curRobot.StartActivity();
         players[team].curRobot = null;
 
+    if (team == Robot.RobotTeam.Left)
+    {
         playerInput.PlaceControls.Disable();
         playerInput.MatchControls.Enable();
+    } else {
+        playerInput.PlaceControlsP2.Disable();
+        playerInput.MatchControlsP2.Enable();
+    }
+        
 
         Debug.Log("Set player to part selection: " + team);
     }
