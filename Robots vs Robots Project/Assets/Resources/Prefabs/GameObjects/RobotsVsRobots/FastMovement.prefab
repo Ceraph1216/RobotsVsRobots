@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 0
-  moveSpeed: 1.5
+  moveSpeed: 1
   bonusHealth: 0
 --- !u!95 &6854779592365811286
 Animator:
