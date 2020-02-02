@@ -53,6 +53,11 @@ public class RobotProductionManager : MonoBehaviour
     Coroutine resetAvatarCoroutine;
     [SerializeField] float resetAvatarTime;
 
+    [SerializeField] GameObject gameOverScreen;
+    [SerializeField] GameObject gameOverPlayer1Text;
+    [SerializeField] GameObject gameOverPlayer2Text;
+
+
     void Awake()
     {
         instance = this;
@@ -412,7 +417,7 @@ public class RobotProductionManager : MonoBehaviour
 
     public void TakeDamage(Robot.RobotTeam team)
     {
-        if (players[team].health < 0) return;
+        if (players[team].health <= 0) return;
 
         players[team].health -= 1;
         int newHealth = players[team].health;
@@ -435,7 +440,10 @@ public class RobotProductionManager : MonoBehaviour
 
         if (players[team].health < 1)
         {
-            Debug.Log("player " + team + " has lost");
+            //Debug.Log("player " + team + " has lost");
+            (team == Robot.RobotTeam.Right ? gameOverPlayer1Text : gameOverPlayer2Text).SetActive(true);
+            gameOverScreen.SetActive(true);
+            gameOverScreen.GetComponent<EasyTween>().OpenCloseObjectAnimation();
         }
         else
         {
