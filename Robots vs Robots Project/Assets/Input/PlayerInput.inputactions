@@ -114,6 +114,82 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PlaceControls",
+            "id": "c74bb175-9625-4b8b-a017-8beb28754ec8",
+            "actions": [
+                {
+                    "name": "Up",
+                    "type": "Button",
+                    "id": "485597c9-aacb-496f-be4b-f60068e62786",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Down",
+                    "type": "Button",
+                    "id": "2dda3e49-8d62-4ad1-a6b8-eac5928e04bd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Confirm",
+                    "type": "Button",
+                    "id": "872c01d6-7e01-49cb-bd6a-12d82f6a9105",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "56349d0b-01cc-489a-9f2e-9bfa28040c24",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c54895f3-94ba-470e-8acc-9d1229a24f04",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5840dacc-74fb-4529-8b2e-1b6ea14e5101",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "611420be-0f56-44f3-9795-288ef92bfd65",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

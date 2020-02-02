@@ -39,6 +39,9 @@ public class RobotProductionManager : MonoBehaviour
         playerInput.MatchControls.Left.performed += ctx => MoveLeft();
         playerInput.MatchControls.Right.performed += ctx => MoveRight();
         playerInput.MatchControls.Select.performed += ctx => InputSelect();
+        playerInput.PlaceControls.Up.performed += ctx => CursorUp(Robot.RobotTeam.Left);
+        playerInput.PlaceControls.Down.performed += ctx => CursorDown(Robot.RobotTeam.Left);
+        playerInput.PlaceControls.Confirm.performed += ctx => ReleaseRobot(Robot.RobotTeam.Left);
 
         players = new Dictionary<Robot.RobotTeam, RobotPlayer>();
         players.Add(Robot.RobotTeam.Left, new RobotPlayer());
@@ -48,6 +51,7 @@ public class RobotProductionManager : MonoBehaviour
     void OnEnable ()
     {
         playerInput.Enable();
+        playerInput.PlaceControls.Disable();
         _gridIndexP1 = cardGridP1.Length -1;
         HoverCard(Robot.RobotTeam.Left, _gridIndexP1);
     }
@@ -190,6 +194,9 @@ public class RobotProductionManager : MonoBehaviour
             RobotDamager rd = part1 as RobotDamager;
             RobotMovement rm;
 
+            playerInput.MatchControls.Disable();
+            playerInput.PlaceControls.Enable();
+
             if (rd == null)
             {
                 rd = part2 as RobotDamager;
@@ -254,6 +261,9 @@ public class RobotProductionManager : MonoBehaviour
 
         players[team].curRobot.StartActivity();
         players[team].curRobot = null;
+
+        playerInput.PlaceControls.Disable();
+        playerInput.MatchControls.Enable();
 
         Debug.Log("Set player to part selection: " + team);
     }
