@@ -354,6 +354,16 @@ public class RobotProductionManager : MonoBehaviour
         return new Vector2(team == Robot.RobotTeam.Left ? leftSpawnX : rightSpawnX, lanes[players[team].cursorPosition].transform.position.y);
     }
 
+    public void Reset ()
+    {
+        _selectedPartP1 = null;
+        _selectedPartP2 = null;
+        _hoverCardP1 = null;
+        _hoverCardP2 = null;
+        playerInput.Disable();
+         PrefabManager.instance.ClearAllPools();
+    }
+
     private void ReleaseRobot(Robot.RobotTeam team)
     {
         if (players[team].curRobot == null) return;
